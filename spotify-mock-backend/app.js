@@ -23,6 +23,9 @@ app.use(
 app.use(bodyParser.json())
 
 
+
+
+
 // Get Token function
 
 
@@ -52,10 +55,10 @@ getToken = () => {
 
 
 
-// Search Endpoint
+// Search Endpoint (takes in "search": "value")
 
 app.get("/search", async (req, res) => {
-    const token = await getToken();
+    let token = await getToken();
 
     let options = {
         url: url + '/search',
@@ -82,22 +85,116 @@ app.get("/search", async (req, res) => {
 
 
 
-// Artist Endpoints
+// Artist Endpoints (takes in "artist_id": value / value = string of id/ids seperated by comma)
 
-app.get("/random_artists", function(req, res) {
+app.get("/artist", async(req, res) => {
+    let token = await getToken();
+    let options = undefined;
 
+    if (req.body.artist_id.includes(",") === false) {
+        // find single artist
+        options = {
+            url: url + `/artists/${req.body.artist_id}`,
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            json: true
+        };
+
+    } else {
+        // find multiple artists
+        options = {
+            url: url + '/artists',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            qs: {
+                ids: req.body.artist_id,
+            },
+            json: true
+        };
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200)
+            res.send(body)
+        } else {
+            res.status(body.error.status)
+            res.send(body.error.message) 
+        }
+    })
 })
 
-app.get("/specific_artist", function(req, res) {
+app.get("/artist_albums", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/artists/${req.body.artist_id}/albums`,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        json: true
+    };
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200)
+            res.send(body)
+        } else {
+            res.status(body.error.status)
+            res.send(body.error.message) 
+        }
+    })
 })
 
-app.get("/artist_albums", function(req, res) {
+app.get("/artist_top-tracks", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/artists/${req.body.artist_id}/top-tracks`,
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        qs: {
+            country: req.body.country,
+        },
+        json: true
+    };
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200)
+            res.send(body)
+        } else {
+            res.status(body.error.status)
+            res.send(body.error.message) 
+        }
+    })
 })
 
-app.get("/artist_top-tracks", function(req, res) {
+app.get("/artist_related-artists", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/artists/${req.body.artist_id}/related-artists`,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        json: true
+    };
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200)
+            res.send(body)
+        } else {
+            res.status(body.error.status)
+            res.send(body.error.message) 
+        }
+    })
 })
 
 
