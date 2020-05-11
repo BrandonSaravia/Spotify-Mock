@@ -1,5 +1,6 @@
 let express = require("express");
 let request = require("request");
+const bodyParser = require('body-parser')
 
 let app = express();
 
@@ -7,9 +8,19 @@ let dotenv = require("dotenv");
 
 dotenv.config()
 
+let url = "https://api.spotify.com/v1"
+
 app.listen(4000, function() {
     console.log("node.js app started on port 4000.  http://127.0.0.1:4000/");
 })
+
+app.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+)
+
+app.use(bodyParser.json())
 
 
 // Get Token function
@@ -27,34 +38,34 @@ let authOptions = {
 }
 
 getToken = () => {
-    request.post(authOptions, function(error, response, body) {
-        if (!error && response.statusCode === 200) {
-            let token = body.access_token;
-            return token
-        } else {
-            return error
-        }
+    return new Promise(resolve => {
+        request.post(authOptions, function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                let token = body.access_token;
+                resolve(token)
+            } else {
+                resolve(error) 
+            }
+        })
     })
 }
 
-app.get("/get", async (req, res) => {
-    let token = '';
-    () => { token = getToken()}.then(
-        console.log(token);
-    )
-    
+
+
+// Search Endpoint
+
+app.get("/search", async (req, res) => {
+    const token = await getToken();
 
     let options = {
-        url: 'https://api.spotify.com/v1/search',
+        url: url + '/search',
         headers: {
             'Authorization': 'Bearer ' + token
         },
         qs: {
-            q: "one",
+            q: req.body.search,
             type: 'artist,album,playlist,track'
-        }
-        
-        ,
+        },
         json: true
     };
 
