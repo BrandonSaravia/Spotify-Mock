@@ -55,15 +55,16 @@ getToken = () => {
 
 
 
-// Search Endpoint (takes in "search": "value")
+//////////////////////////////////////////////////////////// Search Endpoint /////////////////////////////////////////////////////////////////////////
 
+// (takes in "search": "value")
 app.get("/search", async (req, res) => {
     let token = await getToken();
 
     let options = {
         url: url + '/search',
         headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': `Bearer ${token}`
         },
         qs: {
             q: req.body.search,
@@ -85,8 +86,9 @@ app.get("/search", async (req, res) => {
 
 
 
-// Artist Endpoints (takes in "artist_id": value / value = string of id/ids seperated by comma)
+/////////////////////////////////////////////////////////// Artist Endpoints /////////////////////////////////////////////////////////////////////////
 
+// (takes in "artist_id": value / value = string of id/ids seperated by comma)
 app.get("/artist", async(req, res) => {
     let token = await getToken();
     let options = undefined;
@@ -96,7 +98,7 @@ app.get("/artist", async(req, res) => {
         options = {
             url: url + `/artists/${req.body.artist_id}`,
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': `Bearer ${token}`
             },
             json: true
         };
@@ -106,7 +108,7 @@ app.get("/artist", async(req, res) => {
         options = {
             url: url + '/artists',
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             qs: {
@@ -127,13 +129,14 @@ app.get("/artist", async(req, res) => {
     })
 })
 
+// (takes in "artist_id": value)
 app.get("/artist_albums", async(req, res) => {
     let token = await getToken();
 
     let options = {
         url: url + `/artists/${req.body.artist_id}/albums`,
         headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': `Bearer ${token}`
         },
         json: true
     };
@@ -149,13 +152,14 @@ app.get("/artist_albums", async(req, res) => {
     })
 })
 
+// (takes in "artist_id": value ,& "country": value / country value = ISO 3166-1 alpha-2)
 app.get("/artist_top-tracks", async(req, res) => {
     let token = await getToken();
 
     let options = {
         url: url + `/artists/${req.body.artist_id}/top-tracks`,
         headers: {
-            'Authorization': 'Bearer ' + token,
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
         qs: {
@@ -175,13 +179,14 @@ app.get("/artist_top-tracks", async(req, res) => {
     })
 })
 
+// (takes in "artist_id": value)
 app.get("/artist_related-artists", async(req, res) => {
     let token = await getToken();
 
     let options = {
         url: url + `/artists/${req.body.artist_id}/related-artists`,
         headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': `Bearer ${token}`
         },
         json: true
     };
@@ -198,35 +203,139 @@ app.get("/artist_related-artists", async(req, res) => {
 })
 
 
-// Browse Endpoints
+/////////////////////////////////////////////////////////////////// Browse Endpoints ///////////////////////////////////////////////////////////////////
 
-app.get("/catagories", function(req, res) {
+// ( takes in "country": value / value = ISO 3166-1 alpha-2)
+app.get("/categories", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + "/browse/categories",
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        qs: {
+            'country': req.body.country
+        },
+        json: true
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200);
+            res.send(body);
+        } else {
+            res.status(body.error.status);
+            res.send(body.error.message);
+        }
+    })
 })
 
-app.get("/specific_catagory", function(req, res) {
+// ( takes in "category": value / value = string name of category)
+app.get("/specific_category", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/browse/categories/${req.body.category.toLowerCase()}`,
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        json: true
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200);
+            res.send(body);
+        } else {
+            res.status(body.error.status);
+            res.send(body.error.message);
+        }
+    })
 })
 
-app.get("/catagory_playlists", function(req, res) {
+// ( takes in "category": value && "country": value / value = string name of category && ISO 3166-1 alpha-2)
+app.get("/category_playlists", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/browse/categories/${req.body.category.toLowerCase()}/playlists`,
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        qs: {
+            'country': req.body.country
+        },
+        json: true
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200);
+            res.send(body);
+        } else {
+            res.status(body.error.status);
+            res.send(body.error.message);
+        }
+    })
 })
 
-app.get("/featured_playlists", function(req, res) {
+// ( takes in "country": value / value = ISO 3166-1 alpha-2)
+app.get("/featured_playlists", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/browse/featured-playlists`,
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        qs: {
+            'country': req.body.country
+        },
+        json: true
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200);
+            res.send(body);
+        } else {
+            res.status(body.error.status);
+            res.send(body.error.message);
+        }
+    })
 })
 
-app.get("/new_releases", function(req, res) {
+// ( takes in "country": value / value = ISO 3166-1 alpha-2)
+app.get("/new_releases", async(req, res) => {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/browse/new-releases`,
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        qs: {
+            'country': req.body.country
+        },
+        json: true
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200);
+            res.send(body);
+        } else {
+            res.status(body.error.status);
+            res.send(body.error.message);
+        }
+    })
 })
 
-app.get("/recomendations", function(req, res) {
 
-})
+///////////////////////////////////////////////////////////// Track Endpoints ////////////////////////////////////////////////////////////////////////////
 
-
-// Track Endpoints
-
+// 
 app.get("/random_tracks", function(req, res) {
 
 })
