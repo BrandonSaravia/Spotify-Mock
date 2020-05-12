@@ -335,11 +335,51 @@ app.get("/new_releases", async(req, res) => {
 
 ///////////////////////////////////////////////////////////// Track Endpoints ////////////////////////////////////////////////////////////////////////////
 
-// 
-app.get("/random_tracks", function(req, res) {
+// (takes in "track_ids": value / value = ids sepperated by a comma)
+app.get("/tracks", function(req, res) {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/tracks`,
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        qs: {
+            'ids': req.body.track_ids
+        },
+        json: true
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200);
+            res.send(body);
+        } else {
+            res.status(body.error.status);
+            res.send(body.error.message);
+        }
+    })
 })
 
-app.get("/specific_track", function(req, res) {
+// (takes in "track_id": value )
+app.get("/track", function(req, res) {
+    let token = await getToken();
 
+    let options = {
+        url: url + `/tracks/${req.params.track_id}`,
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        json: true
+    }
+
+    request.get(options, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.status(200);
+            res.send(body);
+        } else {
+            res.status(body.error.status);
+            res.send(body.error.message);
+        }
+    })
 })
