@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Search extends Component {
     constructor() {
+        super();
         this.state = {
             selected: null
         }
@@ -15,3 +16,4 @@ class Search extends Component {
         )
     }
 }
+export default Search

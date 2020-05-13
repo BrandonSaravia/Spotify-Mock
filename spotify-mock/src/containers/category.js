@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Category extends Component {
     constructor() {
+        super();
         this.state = {
             selected: null
         }
@@ -15,3 +16,4 @@ class Category extends Component {
         )
     }
 }
+export default Category
