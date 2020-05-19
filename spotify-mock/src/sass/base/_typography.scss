@@ -1,2 +1,8 @@
+.fa-ellipsis-h {
+    color: $white;
+    font-size: 3.5rem;
 
-// LINETO CIRCULAR
+    &:hover {
+        cursor: pointer;
+    }
+}

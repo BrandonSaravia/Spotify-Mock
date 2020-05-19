@@ -1,0 +1,160 @@
+album-collection:
+  changes:
+    - 5.11.0
+  label: Album Collection
+  search:
+    terms:
+      - catalog
+      - library
+      - music
+      - record
+      - song
+      - vinyl
+  styles:
+    - solid
+    - light
+  unicode: f8a0
+  voted: false
+ellipsis-h:
+  changes:
+    - '3.1'
+    - 5.0.0
+  label: Horizontal Ellipsis
+  search:
+    terms:
+      - dots
+      - drag
+      - kebab
+      - list
+      - menu
+      - nav
+      - navigation
+      - ol
+      - reorder
+      - settings
+      - ul
+  styles:
+    - light
+    - regular
+  unicode: f141
+  voted: false
+heart:
+  changes:
+    - '1'
+    - 5.0.0
+    - 5.0.9
+    - 5.10.1
+    - 5.10.2
+  label: Heart
+  search:
+    terms:
+      - favorite
+      - like
+      - love
+      - relationship
+      - valentine
+  styles:
+    - solid
+    - regular
+  unicode: f004
+  voted: false
+home-alt:
+  changes:
+    - 5.7.0
+  label: Alternate Home
+  search:
+    terms:
+      - abode
+      - building
+      - house
+      - main
+  styles:
+    - solid
+    - light
+  unicode: f80a
+  voted: false
+random:
+  changes:
+    - '1'
+    - 5.0.0
+  label: random
+  search:
+    terms:
+      - arrows
+      - shuffle
+      - sort
+      - swap
+      - switch
+      - transfer
+  styles:
+    - regular
+  unicode: f074
+  voted: false
+repeat-1-alt:
+  changes:
+    - 5.0.0
+  label: Alternate Repeat 1
+  search:
+    terms:
+      - flip
+      - reload
+      - rewind
+      - switch
+  styles:
+    - regular
+  unicode: f366
+  voted: false
+repeat-alt:
+  changes:
+    - 5.0.0
+  label: Alternate Repeat
+  search:
+    terms:
+      - flip
+      - reload
+      - rewind
+      - switch
+  styles:
+    - regular
+  unicode: f364
+  voted: false
+search:
+  changes:
+    - '1'
+    - 5.0.0
+  label: Search
+  search:
+    terms:
+      - bigger
+      - enlarge
+      - find
+      - magnify
+      - preview
+      - zoom
+  styles:
+    - solid
+    - light
+  unicode: f002
+  voted: false
+user-circle:
+  changes:
+    - '4.7'
+    - 5.0.0
+    - 5.0.3
+    - 5.0.11
+    - 5.11.0
+    - 5.11.1
+  label: User Circle
+  search:
+    terms:
+      - account
+      - avatar
+      - head
+      - human
+      - man
+      - person
+      - profile
+  styles:
+    - light
+  unicode: f2bd
+  voted: false
