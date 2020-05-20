@@ -15,11 +15,9 @@ import Search from "./containers/search";
 import {selectCurrentPage} from "./actions";
 
 class Dashboard extends Component {
-    constructor() {
-        super();
-    }
 
     renderCurrentPage = (param) => {
+
         switch(param) {
             case "album":
                 return <Album />
@@ -43,14 +41,14 @@ class Dashboard extends Component {
                 return <Home />
         }
     }
-
+    
     render() {
         return (
-            <div>
-                <Navbar currentPage={this.props.currentPage} selectCurrentPage={this.props.selectCurrentPage}/>
+            <>
+                <Navbar selectCurrentPage={this.props.selectCurrentPage} />
                 {this.renderCurrentPage(this.props.currentPage)}
                 <ControlPanel />
-            </div>
+            </>
         )
     }
 }

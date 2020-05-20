@@ -1,3 +1,8 @@
-.test {
-    color: dodgerblue;
+.fa-ellipsis-h {
+    color: $white;
+    font-size: 3.5rem;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

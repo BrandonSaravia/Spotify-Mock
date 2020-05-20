@@ -1,0 +1,19 @@
+.navbar {
+    background-color: $black;
+    position: absolute;
+    height: 91vh;
+    max-width: 20rem;
+    width: 100%;
+
+    &__context-menu {
+        height: 4rem;
+        display: flex;
+        font-size: 2rem;
+        align-items: center;
+        margin: 2rem 0 1rem 2rem;
+    }
+
+    &__nav-icons {
+
+    }
+}

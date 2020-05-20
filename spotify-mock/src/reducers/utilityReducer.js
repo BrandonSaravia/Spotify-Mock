@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions";
 
 const initialState = {
-    currentPage: null
+    currentPage: 'home'
 }
 
 export const utilityReducer = (state = initialState, action) => {

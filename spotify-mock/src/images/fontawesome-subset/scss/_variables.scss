@@ -1,0 +1,29 @@
+// Variables
+// --------------------------
+
+$fa-font-path:         "../webfonts" !default;
+$fa-font-size-base:    16px !default;
+$fa-font-display:      block !default;
+$fa-css-prefix:        fa !default;
+$fa-version:           "5.13.0" !default;
+$fa-border-color:      #eee !default;
+$fa-inverse:           #fff !default;
+$fa-li-width:          2em !default;
+$fa-fw-width:          (20em / 16);
+$fa-primary-opacity:   1 !default;
+$fa-secondary-opacity: .4 !default;
+
+// Convenience function used to set content property
+@function fa-content($fa-var) {
+  @return unquote("\"#{ $fa-var }\"");
+}
+
+$fa-var-album-collection: \f8a0;
+$fa-var-ellipsis-h: \f141;
+$fa-var-heart: \f004;
+$fa-var-home-alt: \f80a;
+$fa-var-random: \f074;
+$fa-var-repeat-1-alt: \f366;
+$fa-var-repeat-alt: \f364;
+$fa-var-search: \f002;
+$fa-var-user-circle: \f2bd;
